@@ -1,13 +1,4 @@
 package com.myproject.skillxchange.controller;
-
-
-import com.myproject.skillxchange.repository.UserRepository;
-import com.myproject.skillxchange.response.AuthResponse;
-import com.myproject.skillxchange.service.UserServiceImplementation;
-import com.myproject.skillxchange.service.UserService;
-import com.myproject.skillxchange.SecurityConfig.JwtProvider;
-import com.myproject.skillxchange.usermodel.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +6,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.http.Cookie;
+import com.myproject.skillxchange.SecurityConfig.JwtProvider;
+import com.myproject.skillxchange.repository.UserRepository;
+import com.myproject.skillxchange.response.AuthResponse;
+import com.myproject.skillxchange.service.UserServiceImplementation;
+import com.myproject.skillxchange.usermodel.User;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -38,10 +33,8 @@ public class UserController {
     @Autowired
     private UserServiceImplementation customUserDetails;
     
-    @Autowired
-    private UserService userService;
-
-
+    // @Autowired
+    // private UserService userService;
 
 
     @PostMapping("/signup")
@@ -75,7 +68,7 @@ public class UserController {
         authResponse.setJwt(token);
         authResponse.setMessage("Register Success");
         authResponse.setStatus(true);
-        return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.OK);
+        return new ResponseEntity<>(authResponse, HttpStatus.OK);
 
     }
 
