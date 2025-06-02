@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.myproject.skillxchange.SecurityConfig.JwtProvider;
 import com.myproject.skillxchange.repository.UserRepository;
 import com.myproject.skillxchange.usermodel.User;
 
@@ -21,8 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserProfileByJwt(String jwt) {
-        // your logic to find user by JWT
-        return null;  // implement as needed
+        return userRepository.findByEmail(JwtProvider.getEmailFromJwtToken(jwt)); 
     }
 
     @Override
@@ -33,10 +33,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
-    }
-
-    @Override
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
     }
 }
